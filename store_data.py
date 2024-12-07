@@ -12,11 +12,11 @@ mydb = pymysql.connect(
 )
 mycursor = mydb.cursor()
 
-users_file_path = '/home/jimmylin0979/Desktop/db_proj/Users_Table__Updated_.csv'
-vehicles_file_path = '/home/jimmylin0979/Desktop/db_proj/Vehicles_Table__Updated_.csv'
-violate_status_file_path = '/home/jimmylin0979/Desktop/db_proj/Violate_Status_Table__Updated_.csv'
-inspection_status_file_path = '/home/jimmylin0979/Desktop/db_proj/Inspection_Status_Table__Updated_.csv'
-violation_file_path = '/home/jimmylin0979/Desktop/db_proj/Violation_Table__Updated_.csv'
+users_file_path = '/home/jimmylin0979/Desktop/db_proj/Users_Table__V6_.csv'
+vehicles_file_path = '/home/jimmylin0979/Desktop/db_proj/Vehicles_Table__V6_.csv'
+violate_status_file_path = '/home/jimmylin0979/Desktop/db_proj/Violate_Status_Table__V6_.csv'
+inspection_status_file_path = '/home/jimmylin0979/Desktop/db_proj/Inspection_Status_Table__V6_.csv'
+violation_file_path = '/home/jimmylin0979/Desktop/db_proj/Violation_Table__V6_.csv'
 
 users_data = pd.read_csv(users_file_path)
 vehicles_data = pd.read_csv(vehicles_file_path)
@@ -70,13 +70,14 @@ for index, row in vehicles_data.iterrows():
         print(f"Error inserting row {index}: {e}")
 
 for index, row in violate_status_data.iterrows():
-    sql = """INSERT INTO violate_status (status, fine, date, violation_no) 
-             VALUES (%s, %s, %s, %s)"""
+    sql = """INSERT INTO violate_status (status, fine, date, violation_no, violation_type) 
+             VALUES (%s, %s, %s, %s, %s)"""
     values = (
         row['status'], 
         row['fine'], 
         row['date'], 
-        row['violation_no']
+        row['violation_no'],
+        row['violation_type']
     )
     try:
         mycursor.execute(sql, values)
@@ -84,13 +85,14 @@ for index, row in violate_status_data.iterrows():
         print(f"Error inserting row {index}: {e}")
 
 for index, row in inspection_status_data.iterrows():
-    sql = """INSERT INTO inspection_status (status, inspect_no, next_time, inspect_fee) 
-             VALUES (%s, %s, %s, %s)"""
+    sql = """INSERT INTO inspection_status (status, inspect_no, next_time, inspect_fee, inspect_type) 
+             VALUES (%s, %s, %s, %s, %s)"""
     values = (
         row['status'], 
         row['inspect_no'], 
         row['next_time'], 
-        row['inspect_fee']
+        row['inspect_fee'],
+        row['inspect_type']
     )
     try:
         mycursor.execute(sql, values)
