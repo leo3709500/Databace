@@ -73,6 +73,12 @@ class Ui_MainWindow(object):
         self.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
         self.gridLayout.addWidget(self.lineEdit_2, 1, 1, 1, 1)
         
+        # 設定顯示用戶資料的標籤
+        self.user_info_label = QtWidgets.QLabel(self.centralwidget)
+        self.user_info_label.setGeometry(QtCore.QRect(100, 250, 600, 300))  # 調整位置和大小
+        self.user_info_label.setWordWrap(True)  # 允許自動換行
+        self.user_info_label.setObjectName("user_info_label")
+        
         # 設定主視窗的中央小工具
         MainWindow.setCentralWidget(self.centralwidget)
         

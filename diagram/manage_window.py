@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 
 class Ui_MainWindow(object):
@@ -21,10 +22,24 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         
-        # 設定列表視圖
-        self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setGeometry(QtCore.QRect(20, 180, 751, 401))
-        self.listView.setObjectName("listView")
+       # 設定表格視圖
+        self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.tableView.setGeometry(QtCore.QRect(20, 190, 751, 381))
+        self.tableView.setObjectName("tableView")
+        self.tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        
+
+        self.columns = [
+            "type", "license_plate", "car_year", "car_month", "car_date", 
+            "inspect_no", "user_ssn", "vehicle_license", "violation_no", 
+            "status", "fine", "violate_year", "violate_month", "violate_date", 
+            "violation_no", "violation_type", "status", "inspect_no", 
+            "next__inspect_year", "next_inspect_month", "next_inspect_date", "inspect_fee", "inspect_type"
+        ]
+        # 設定模型
+        self.model = QStandardItemModel()
+        self.model.setHorizontalHeaderLabels(self.columns)
+        self.tableView.setModel(self.model)
         
         # 設定按鈕的佈局小工具
         self.layoutWidget = QtWidgets.QWidget(self.centralwidget)

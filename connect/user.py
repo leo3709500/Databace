@@ -1,7 +1,8 @@
 from PyQt5 import QtWidgets
 
 class User_control:
-    def __init__(self):
+    def __init__(self, ui_user_find):
+        self.ui_user_find = ui_user_find  # 保存 UI 引用
         self.account = None
         self.password = None
     
@@ -19,26 +20,22 @@ class User_control:
         # check result!
         if result:
             print("Login successful!")
-            print("User personal information:")
+            user_info = f"用戶資料:\n帳號: {result[0]}\n姓名: {result[1]}\n電子郵件: {result[2]}\n"  # 假設 result[0] 是帳號，result[1] 是姓名，result[2] 是電子郵件
+            self.ui_user_find.user_info_label.setText(user_info)  # 顯示用戶資料
 
-            self.mycursor.execute(user_query, (self.ssn, self.password))
-            user_infor = self.mycursor.fetchall()
-            for infor in user_infor:
-                print(infor)
-            
             vehicle_query = "SELECT * FROM vehicles WHERE user_ssn = %s"
-            self.mycursor.execute(vehicle_query, (self.ssn))
+            self.mycursor.execute(vehicle_query, (self.ssn,))
             vehicles = self.mycursor.fetchall()
             if vehicles:
+                vehicle_info = "用戶的車輛:\n"
                 for vehicle in vehicles:
-                    print("User's Vehicles:")
-                    print(vehicle)  # 逐行列印每一筆資料
-                    self.violation_infor(vehicle[1])
+                    vehicle_info += f"車輛牌照: {vehicle[1]}\n"  # 假設 vehicle[1] 是車輛牌照
+                self.ui_user_find.user_info_label.setText(user_info + vehicle_info)  # 顯示車輛資料
             else:
-                print("No vehicles found for this user.")
-            # 這裡可以進一步處理登錄成功後的動作
+                self.ui_user_find.user_info_label.setText(user_info + "沒有找到該用戶的車輛。")
         else:
             print("Invalid username or password.")
+            self.ui_user_find.user_info_label.setText("無效的帳號或密碼。")
     def violation_infor(self, vehicle_license):
         violation_query = "SELECT * FROM violation WHERE vehicle_license = %s"
         self.mycursor.execute(violation_query, (vehicle_license))
