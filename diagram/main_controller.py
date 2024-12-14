@@ -90,12 +90,13 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
         self.mydb = pymysql.connect(
                 host='localhost',
                 user='root',
-                password='jimmylin0320',
+                password='shibainu',
                 database='carsys'
         )
         self.mycursor = self.mydb.cursor()
         #inherit the attribute from the other controller.
         super().__init__()
+        Manage_control.__init__(self, is_edit=False)
 
 
     def setup_connections(self):
@@ -108,6 +109,8 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
         self.ui_manage.pushButton_4.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.add_widget))
         
         self.ui_login.pushButton_3.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.main_widget))
+        self.ui_login.pushButton_3.clicked.connect(self.ui_login.lineEdit.clear)
+        self.ui_login.pushButton_3.clicked.connect(self.ui_login.lineEdit_2.clear)
         self.ui_user_find.pushButton_3.clicked.connect(self.user_login)
         self.ui_user_find.pushButton_4.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.main_widget))# return to orginal page
         # self.ui_user_find.pushButton_4.clicked.connect(self.user_login)
@@ -120,6 +123,7 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
         self.ui_manage.pushButton_5.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.main_widget))
         self.ui_manage.pushButton_7.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.add_vehicle_widget))
         self.ui_manage.pushButton_8.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.add_violation_widget))
+        # self.ui_manage.pushButton_2.clicked.connect(self.toggle_edit_mode)
 
         self.ui_add.pushButton.clicked.connect(self.add_user)
         self.ui_add.pushButton_3.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.manage_widget))

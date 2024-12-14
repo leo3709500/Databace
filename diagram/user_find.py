@@ -73,11 +73,31 @@ class Ui_MainWindow(object):
         self.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
         self.gridLayout.addWidget(self.lineEdit_2, 1, 1, 1, 1)
         
-        # 設定顯示用戶資料的標籤
-        self.user_info_label = QtWidgets.QLabel(self.centralwidget)
-        self.user_info_label.setGeometry(QtCore.QRect(100, 250, 600, 300))  # 調整位置和大小
-        self.user_info_label.setWordWrap(True)  # 允許自動換行
+        # 設定用戶資料群組框
+        self.user_info_group = QtWidgets.QGroupBox(self.centralwidget)
+        self.user_info_group.setGeometry(QtCore.QRect(100, 250, 600, 150))
+        self.user_info_group.setTitle("用戶資料")
+        
+        # 設定用戶資料標籤
+        self.user_info_label = QtWidgets.QLabel(self.user_info_group)
+        self.user_info_label.setGeometry(QtCore.QRect(10, 20, 280, 120))
+        self.user_info_label.setWordWrap(True)
+        self.user_info_label.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft)
+        self.user_info_label.setStyleSheet("font-size: 12pt; color: #333;")
         self.user_info_label.setObjectName("user_info_label")
+        
+        # 設定用戶車輛群組框
+        self.vehicle_info_group = QtWidgets.QGroupBox(self.centralwidget)
+        self.vehicle_info_group.setGeometry(QtCore.QRect(100, 410, 600, 150))
+        self.vehicle_info_group.setTitle("用戶的車輛")
+        
+        # 設定用戶車輛標籤
+        self.vehicle_info_label = QtWidgets.QLabel(self.vehicle_info_group)
+        self.vehicle_info_label.setGeometry(QtCore.QRect(10, 20, 280, 120))
+        self.vehicle_info_label.setWordWrap(True)
+        self.vehicle_info_label.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft)
+        self.vehicle_info_label.setStyleSheet("font-size: 12pt; color: #333;")
+        self.vehicle_info_label.setObjectName("vehicle_info_label")
         
         # 設定主視窗的中央小工具
         MainWindow.setCentralWidget(self.centralwidget)

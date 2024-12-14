@@ -20,22 +20,23 @@ class User_control:
         # check result!
         if result:
             print("Login successful!")
-            user_info = f"用戶資料:\n帳號: {result[0]}\n姓名: {result[1]}\n電子郵件: {result[2]}\n"  # 假設 result[0] 是帳號，result[1] 是姓名，result[2] 是電子郵件
+            user_info = f"帳號: {result[0]}\n姓名: {result[1]}\n電子郵件: {result[3]}"  # 假設 result[0] 是帳號，result[1] 是姓名，result[2] 是電子郵件
             self.ui_user_find.user_info_label.setText(user_info)  # 顯示用戶資料
 
             vehicle_query = "SELECT * FROM vehicles WHERE user_ssn = %s"
             self.mycursor.execute(vehicle_query, (self.ssn,))
             vehicles = self.mycursor.fetchall()
             if vehicles:
-                vehicle_info = "用戶的車輛:\n"
+                vehicle_info = ""
                 for vehicle in vehicles:
                     vehicle_info += f"車輛牌照: {vehicle[1]}\n"  # 假設 vehicle[1] 是車輛牌照
-                self.ui_user_find.user_info_label.setText(user_info + vehicle_info)  # 顯示車輛資料
+                self.ui_user_find.vehicle_info_label.setText(vehicle_info)  # 顯示車輛資料
             else:
-                self.ui_user_find.user_info_label.setText(user_info + "沒有找到該用戶的車輛。")
+                self.ui_user_find.vehicle_info_label.setText("沒有找到該用戶的車輛。")
         else:
             print("Invalid username or password.")
             self.ui_user_find.user_info_label.setText("無效的帳號或密碼。")
+            self.ui_user_find.vehicle_info_label.setText("")  # 清空車輛信息
     def violation_infor(self, vehicle_license):
         violation_query = "SELECT * FROM violation WHERE vehicle_license = %s"
         self.mycursor.execute(violation_query, (vehicle_license))

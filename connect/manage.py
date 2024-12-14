@@ -2,6 +2,10 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
 class Manage_control:
+    def __init__(self, is_edit=False):
+        # 初始化狀態變量
+        self.is_edit = is_edit
+
     def manage_query(self):
         car_type = str(self.ui_manage.comboBox.currentText()).strip()
         violation_type = str(self.ui_manage.comboBox_2.currentText()).strip()    #1001, 1002, 1003, 1004, all
@@ -80,15 +84,23 @@ class Manage_control:
         self.mycursor.execute(vehicles_query, tuple(query_params))
         return self.mycursor.fetchall()  # 返回查詢結果
     def setup_table(self):
-        self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
-        self.ui_manage.tableView.setSelectionBehavior(self.ui_manage.tableView.SelectItems)
-        self.ui_manage.tableView.setSelectionMode(self.ui_manage.tableView.SingleSelection)
+        self.is_edit = not self.is_edit
+        if self.is_edit:
+            self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
+        else:
+            self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        # 根據當前模式設置表格的編輯觸發器
+        if self.is_edit:
+            self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
+            self.ui_manage.tableView.setSelectionBehavior(self.ui_manage.tableView.SelectRows)
+            self.ui_manage.tableView.setSelectionMode(self.ui_manage.tableView.SingleSelection)
         for row in range(self.ui_manage.model.rowCount()):
             for column in range(self.ui_manage.model.columnCount()):
                 item = self.ui_manage.model.item(row, column)
                 if item: 
                     item.setFlags(item.flags() | Qt.ItemIsEditable)
         self.ui_manage.model.itemChanged.connect(self.on_item_changed)
+
 
     def on_item_changed(self, item):
         original_value = self.ui_manage.model.data(item.index(), Qt.EditRole)
@@ -157,3 +169,12 @@ class Manage_control:
             print(f"Failed to delete row from database: {e}")
             self.mydb.rollback()
             QMessageBox.critical(self.ui_manage.tableView, "Error", "Failed to delete the row from the database.")
+
+    def toggle_edit_mode(self):
+        # 切換編輯模式
+        self.is_edit = not self.is_edit
+        if self.is_edit:
+            self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
+        else:
+            self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.setup_table()  # 更新表格設置
