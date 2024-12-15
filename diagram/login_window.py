@@ -38,6 +38,7 @@ class Ui_MainWindow(object):
         self.label_3.setGeometry(QtCore.QRect(300, 100, 211, 101))
         font = QtGui.QFont()
         font.setPointSize(32)
+        font.setFamily("Microsoft JhengHei")
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         
@@ -53,6 +54,7 @@ class Ui_MainWindow(object):
         self.label_2 = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(11)
+        font.setFamily("Microsoft JhengHei")
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
@@ -61,6 +63,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(11)
+        font.setFamily("Microsoft JhengHei")
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
@@ -90,6 +93,92 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        # 隱藏視窗邊框
+        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
+        # 添加 Mac OS 風格的紅橘綠按鈕
+        self.button_close = QtWidgets.QPushButton(self.centralwidget)
+        self.button_close.setGeometry(QtCore.QRect(10, 10, 15, 15))
+        self.button_close.setStyleSheet("""
+            QPushButton {
+                background-color: #FF605C;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FF1F1F;
+            }
+        """)
+        self.button_minimize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_minimize.setGeometry(QtCore.QRect(30, 10, 15, 15))
+        self.button_minimize.setStyleSheet("""
+            QPushButton {
+                background-color: #FFBD44;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FFAA00;
+            }
+        """)
+        self.button_maximize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_maximize.setGeometry(QtCore.QRect(50, 10, 15, 15))
+        self.button_maximize.setStyleSheet("""
+            QPushButton {
+                background-color: #00CA4E;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #00B324;
+            }
+        """)
+
+        # 連接按鈕的點擊事件
+        self.button_close.clicked.connect(MainWindow.close)
+        self.button_minimize.clicked.connect(MainWindow.showMinimized)
+        self.button_maximize.clicked.connect(MainWindow.showMaximized)
+
+        # 設定視窗圓角和背景半透明
+        MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.centralwidget.setStyleSheet("""
+            QWidget#centralwidget {
+                background-image: url('C:/github/Databace-brian/background/background_2.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                border-radius: 15px;
+                opacity: 0.25;
+            }
+        """)
+
+        # 設定整體深色主題和圓角按鈕的樣式
+        MainWindow.setStyleSheet("""
+            QMainWindow {
+                background-color: #2b2b2b;
+            }
+            QLabel {
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: 2px solid #444444;
+                border-radius: 15px;
+                padding: 30px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+            QLineEdit {
+                border: 2px solid #444444;
+                border-radius: 15px;
+                padding: 5px;
+                background-color: #FFFFFF;
+                color: 	#000000;
+            }
+        """)
+
         # 重新翻譯 UI 元素
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -101,8 +190,27 @@ class Ui_MainWindow(object):
         self.pushButton.setText(_translate("MainWindow", "登入"))
         self.pushButton_3.setText(_translate("MainWindow", "返回主畫面"))
         self.label_3.setText(_translate("MainWindow", "管理員登入"))
+        self.label_3.setStyleSheet("""
+            QLabel {
+                color: #000000;
+                font-weight: bold;
+                font-size: 40px;
+            }
+        """)
         self.label_2.setText(_translate("MainWindow", "密碼："))
+        self.label_2.setStyleSheet("""
+            QLabel {
+                color: #000000;
+                font-size: 20px;
+            }
+        """)
         self.label.setText(_translate("MainWindow", "帳號："))
+        self.label.setStyleSheet("""
+            QLabel {
+                color: #000000;
+                font-size: 20px;
+            }
+        """)
 
 if __name__ == "__main__":
     import sys

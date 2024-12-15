@@ -21,22 +21,27 @@ class Ui_MainWindow(object):
         
         # 創建標籤顯示標題
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(330, 50, 151, 51))
+        self.label_4.setGeometry(QtCore.QRect(0, 50, 800, 51))
         font = QtGui.QFont()
         font.setPointSize(22)
+        font.setFamily("Microsoft JhengHei")
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
+        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         
         # 創建表格小部件
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(120, 130, 591, 361))
+        self.tableWidget.setGeometry(QtCore.QRect(125, 130, 560, 361))
         font = QtGui.QFont()
         font.setPointSize(9)
+        font.setFamily("Microsoft JhengHei")
         self.tableWidget.setFont(font)
         self.tableWidget.setAlternatingRowColors(False)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(3)  # 設置列數
         self.tableWidget.setRowCount(11)    # 設置行數
+        
+        
         
         # 設置表格內容唯讀
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -59,6 +64,7 @@ class Ui_MainWindow(object):
         for row in range(11):
             for col in range(3):
                 item = QtWidgets.QTableWidgetItem()
+                item.setTextAlignment(QtCore.Qt.AlignCenter)  # 設置表格內容置中
                 self.tableWidget.setItem(row, col, item)
         
         # 設置表格的默認列寬和行高
@@ -67,8 +73,22 @@ class Ui_MainWindow(object):
         
         # 創建返回主畫面的按鈕
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setGeometry(QtCore.QRect(360, 520, 102, 23))
+        self.pushButton_6.setGeometry(QtCore.QRect(355, 520, 102, 23))
         self.pushButton_6.setObjectName("pushButton_6")
+        self.pushButton_6.setStyleSheet("""
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: 3px solid #444444;
+                border-radius: 11px;
+                padding: 1px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+        """)
+        
         
         # 設置主視窗的中央小部件
         MainWindow.setCentralWidget(self.centralwidget)
@@ -86,10 +106,153 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        # 隱藏視窗邊框
+        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        
+        # 添加 Mac OS 風格的紅橘綠按鈕
+        self.button_close = QtWidgets.QPushButton(self.centralwidget)
+        self.button_close.setGeometry(QtCore.QRect(10, 10, 15, 15))
+        self.button_close.setStyleSheet("""
+            QPushButton {
+                background-color: #FF605C;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FF1F1F;
+            }
+        """)
+        self.button_minimize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_minimize.setGeometry(QtCore.QRect(30, 10, 15, 15))
+        self.button_minimize.setStyleSheet("""
+            QPushButton {
+                background-color: #FFBD44;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FFAA00;
+            }
+        """)
+        self.button_maximize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_maximize.setGeometry(QtCore.QRect(50, 10, 15, 15))
+        self.button_maximize.setStyleSheet("""
+            QPushButton {
+                background-color: #00CA4E;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #00B324;
+            }
+        """)
+        
+        # 連接按鈕的點擊事件
+        self.button_close.clicked.connect(MainWindow.close)
+        self.button_minimize.clicked.connect(MainWindow.showMinimized)
+        self.button_maximize.clicked.connect(MainWindow.showMaximized)
+        
+        # 設定視窗圓角和背景半透明
+        MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.centralwidget.setStyleSheet("""
+            QWidget#centralwidget {
+                background-image: url('C:/github/Databace-brian/background/background_2.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                border-radius: 15px;
+                opacity: 0.25;
+            }
+        """)
+
+        # 設定UI文字
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        # 設定整體深色主題和圓角按鈕的樣式
+        MainWindow.setStyleSheet("""
+            QMainWindow {
+                background-color: #2b2b2b;
+            }
+            QLabel {
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: 2px solid #444444;
+                border-radius: 15px;
+                padding: 3px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+        """)
+
+        # 添加圓角樣式
+        self.tableWidget.setStyleSheet("""
+            QTableWidget {
+                border: 5px solid #444444;
+                background-color: #2E2E2E;
+                color: #FFFFFF;
+            }
+            QTableWidget::item {
+                background-color: #3C3C3C;
+                color: #FFFFFF;
+            }
+            QTableWidget::item:selected {
+                background-color: #0080FF;
+                color: #FFFFFF;
+            }
+            QHeaderView::section {
+                background-color: #444444;
+                color: #FFFFFF;
+            }
+            QScrollBar:vertical {
+                border: none;
+                background: #444444; /* 滾動條背景顏色 */
+                width: 10px; /* 滾動條寬度 */
+                margin: 22px 0 22px 0; /* 上下邊距 */
+            }
+            QScrollBar::handle:vertical {
+                background: #ADADAD; /* 滾動條滑塊顏色 */
+                min-height: 20px; /* 滑塊最小高度 */
+            }
+            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+                background: none; /* 隱藏上下箭頭 */
+            }
+            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+                background: none; /* 隱藏滾動條的頁面 */
+            }
+            QScrollBar:horizontal {
+                border: none;
+                background: #444444; /* 滾動條背景顏色 */
+                height: 10px; /* 滾動條高度 */
+                margin: 0 22px 0 22px; /* 左右邊距 */
+            }
+            QScrollBar::handle:horizontal {
+                background: #ADADAD; /* 滾動條滑塊顏色 */
+                min-width: 20px; /* 滑塊最小寬度 */
+            }
+            QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+                background: none; /* 隱藏左右箭頭 */
+            }
+            QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+                background: none; /* 隱藏滾動條的頁面 */
+            }
+        """)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_4.setText(_translate("MainWindow", "其他監理站"))
+        self.label_4.setStyleSheet("""
+            QLabel {
+                color: #000000;
+                font-weight: bold;
+                font-size: 40px;
+            }
+        """)
         self.tableWidget.setSortingEnabled(False)
         
         # 設置表格的列標題

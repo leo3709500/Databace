@@ -24,6 +24,7 @@ class Ui_MainWindow(object):
         self.label.setGeometry(QtCore.QRect(240, 110, 301, 101))
         font = QtGui.QFont()
         font.setPointSize(32)
+        font.setFamily("Microsoft JhengHei")
         self.label.setFont(font)
         self.label.setObjectName("label")
         
@@ -39,29 +40,41 @@ class Ui_MainWindow(object):
         self.pushButton_2 = QtWidgets.QPushButton(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.setIcon(QtGui.QIcon("C:\\github\\Databace-brian\\icon\\1.png"))
+        self.pushButton_2.setIconSize(QtCore.QSize(32, 32))
         self.verticalLayout.addWidget(self.pushButton_2)
         
         self.pushButton_4 = QtWidgets.QPushButton(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.pushButton_4.setFont(font)
         self.pushButton_4.setObjectName("pushButton_4")
+        self.pushButton_4.setIcon(QtGui.QIcon("C:\\github\\Databace-brian\\icon\\2.png"))
+        self.pushButton_4.setIconSize(QtCore.QSize(32, 32))
         self.verticalLayout.addWidget(self.pushButton_4)
         
         self.pushButton_5 = QtWidgets.QPushButton(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.pushButton_5.setFont(font)
         self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_5.setIcon(QtGui.QIcon("C:\\github\\Databace-brian\\icon\\3.png"))
+        self.pushButton_5.setIconSize(QtCore.QSize(32, 32))
         self.verticalLayout.addWidget(self.pushButton_5)
         
         self.pushButton_6 = QtWidgets.QPushButton(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.pushButton_6.setFont(font)
         self.pushButton_6.setObjectName("pushButton_6")
+        self.pushButton_6.setIcon(QtGui.QIcon("C:\\github\\Databace-brian\\icon\\4.png"))
+        self.pushButton_6.setIconSize(QtCore.QSize(32, 32))
         self.verticalLayout.addWidget(self.pushButton_6)
         
         # 設定主視窗的中央小部件
@@ -82,16 +95,102 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        # 設定整體深色主題和圓角按鈕的樣式
+        MainWindow.setStyleSheet("""
+            QMainWindow {
+                background-color: #2b2b2b;
+            }
+            QLabel {
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: 2px solid #444444;
+                border-radius: 15px;
+                padding: 3px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+        """)
+
+        # 隱藏視窗邊框
+        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
+        # 添加 Mac OS 風格的紅橘綠按鈕
+        self.button_close = QtWidgets.QPushButton(self.centralwidget)
+        self.button_close.setGeometry(QtCore.QRect(10, 10, 15, 15))
+        self.button_close.setStyleSheet("""
+            QPushButton {
+                background-color: #FF605C;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FF1F1F;
+            }
+        """)
+        self.button_minimize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_minimize.setGeometry(QtCore.QRect(30, 10, 15, 15))
+        self.button_minimize.setStyleSheet("""
+            QPushButton {
+                background-color: #FFBD44;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FFAA00;
+            }
+        """)
+        self.button_maximize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_maximize.setGeometry(QtCore.QRect(50, 10, 15, 15))
+        self.button_maximize.setStyleSheet("""
+            QPushButton {
+                background-color: #00CA4E;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #00B324;
+            }
+        """)
+
+        # 連接按鈕的點擊事件
+        self.button_close.clicked.connect(MainWindow.close)
+        self.button_minimize.clicked.connect(MainWindow.showMinimized)
+        self.button_maximize.clicked.connect(MainWindow.showMaximized)
+
+        # 設定視窗圓角和背景半透明
+        MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.centralwidget.setStyleSheet("""
+            QWidget#centralwidget {
+                background-image: url('C:/github/Databace-brian/background/background.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                border-radius: 15px;
+                opacity: 0.25;
+            }
+        """)
+
     def retranslateUi(self, MainWindow):
         # 設定視窗和按鈕的文字
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "監理站管理系統"))
+        self.label.setGeometry(QtCore.QRect(230, 120, 320, 101))
+        self.label.setStyleSheet("""
+            QLabel {
+                color: #000000;
+                font-weight: bold;
+                font-size: 45px;
+            }
+        """)
         self.pushButton_2.setText(_translate("MainWindow", "一般查詢"))
         self.pushButton_4.setText(_translate("MainWindow", "管理員登入"))
         self.pushButton_5.setText(_translate("MainWindow", "一般常見問題"))
         self.pushButton_6.setText(_translate("MainWindow", "其他監理站"))
-
 if __name__ == "__main__":
     import sys
     # 創建應用程式和主視窗
@@ -102,3 +201,4 @@ if __name__ == "__main__":
     MainWindow.show()
     # 執行應用程式
     sys.exit(app.exec_())
+

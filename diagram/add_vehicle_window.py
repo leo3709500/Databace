@@ -56,6 +56,7 @@ class Ui_MainWindow(object):
         self.label_7 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.gridLayout.addWidget(self.label_7, 3, 0, 1, 1)
@@ -69,6 +70,7 @@ class Ui_MainWindow(object):
         self.label_2 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
@@ -79,6 +81,23 @@ class Ui_MainWindow(object):
         self.dateEdit.setDisplayFormat("yyyy-MM-dd")
         self.gridLayout.addWidget(self.dateEdit, 1, 1, 1, 1)
         
+        self.dateEdit.setStyleSheet("""
+            QDateEdit {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            QDateEdit::drop-down {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+        """)
+        
         # 檢驗費用輸入框
         self.lineEdit_7 = QtWidgets.QLineEdit(self.layoutWidget_2)
         self.lineEdit_7.setObjectName("lineEdit_7")
@@ -88,6 +107,7 @@ class Ui_MainWindow(object):
         self.label_8 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.gridLayout.addWidget(self.label_8, 5, 0, 1, 1)
@@ -96,6 +116,7 @@ class Ui_MainWindow(object):
         self.label_6 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.gridLayout.addWidget(self.label_6, 1, 0, 1, 1)
@@ -106,10 +127,29 @@ class Ui_MainWindow(object):
         self.dateEdit_2.setDisplayFormat("yyyy-MM-dd")
         self.gridLayout.addWidget(self.dateEdit_2, 6, 1, 1, 1)
         
+        self.dateEdit_2.setStyleSheet("""
+            QDateEdit {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            QDateEdit::drop-down {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+        """)
+        
+
         # 檢驗費用標籤
         self.label_10 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_10.setFont(font)
         self.label_10.setObjectName("label_10")
         self.gridLayout.addWidget(self.label_10, 7, 0, 1, 1)
@@ -121,10 +161,33 @@ class Ui_MainWindow(object):
         self.comboBox_3.addItem("")
         self.gridLayout.addWidget(self.comboBox_3, 5, 1, 1, 1)
         
+        # 美化下拉選單
+        self.comboBox_3.setStyleSheet("""
+            QComboBox {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            QComboBox::drop-down {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #FFFFFF;
+                border-radius: 6px;
+                padding: 10px;
+                font-size: 15px;
+                font-weight: bold;
+                font-family: "Microsoft JhengHei";
+                
+            }
+        """)
+        
         # 下次檢驗日期標籤
         self.label_9 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_9.setFont(font)
         self.label_9.setObjectName("label_9")
         self.gridLayout.addWidget(self.label_9, 6, 0, 1, 1)
@@ -133,6 +196,7 @@ class Ui_MainWindow(object):
         self.label_5 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.gridLayout.addWidget(self.label_5, 4, 0, 1, 1)
@@ -146,6 +210,7 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.gridLayout.addWidget(self.label_4, 2, 0, 1, 1)
@@ -154,6 +219,7 @@ class Ui_MainWindow(object):
         self.label_11 = QtWidgets.QLabel(self.layoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_11.setFont(font)
         self.label_11.setObjectName("label_11")
         self.gridLayout.addWidget(self.label_11, 8, 0, 1, 1)
@@ -168,6 +234,28 @@ class Ui_MainWindow(object):
         self.comboBox_4.addItem("")
         self.gridLayout.addWidget(self.comboBox_4, 8, 1, 1, 1)
         
+        self.comboBox_4.setStyleSheet("""
+            QComboBox {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            QComboBox::drop-down {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #FFFFFF;
+                border-radius: 6px;
+                padding: 10px;
+                font-size: 15px;
+                font-weight: bold;
+                font-family: "Microsoft JhengHei";
+                
+            }
+        """)
+        
+
         # 車輛種類下拉選單
         self.car_typ_comboBox = QtWidgets.QComboBox(self.layoutWidget_2)
         self.car_typ_comboBox.setObjectName("car_typ_comboBox")
@@ -178,11 +266,34 @@ class Ui_MainWindow(object):
         self.car_typ_comboBox.addItem("")
         self.gridLayout.addWidget(self.car_typ_comboBox, 2, 1, 1, 1)
         
+        self.car_typ_comboBox.setStyleSheet("""
+            QComboBox {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            QComboBox::drop-down {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #FFFFFF;
+                border-radius: 6px;
+                padding: 10px;
+                font-size: 15px;
+                font-weight: bold;
+                font-family: "Microsoft JhengHei";
+                
+            }
+        """)
+        
+
         # 標題標籤
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(270, 70, 251, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
+        font.setFamily("Microsoft JhengHei")
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         
@@ -207,6 +318,92 @@ class Ui_MainWindow(object):
         # 設定清除按鈕的功能
         self.pushButton_2.clicked.connect(self.clear_fields)
 
+        # 隱藏視窗邊框
+        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        
+        # 添加 Mac OS 風格的紅橘綠按鈕
+        self.button_close = QtWidgets.QPushButton(self.centralwidget)
+        self.button_close.setGeometry(QtCore.QRect(10, 10, 15, 15))
+        self.button_close.setStyleSheet("""
+            QPushButton {
+                background-color: #FF605C;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FF1F1F;
+            }
+        """)
+        self.button_minimize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_minimize.setGeometry(QtCore.QRect(30, 10, 15, 15))
+        self.button_minimize.setStyleSheet("""
+            QPushButton {
+                background-color: #FFBD44;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FFAA00;
+            }
+        """)
+        self.button_maximize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_maximize.setGeometry(QtCore.QRect(50, 10, 15, 15))
+        self.button_maximize.setStyleSheet("""
+            QPushButton {
+                background-color: #00CA4E;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #00B324;
+            }
+        """)
+        
+        # 連接按鈕的點擊事件
+        self.button_close.clicked.connect(MainWindow.close)
+        self.button_minimize.clicked.connect(MainWindow.showMinimized)
+        self.button_maximize.clicked.connect(MainWindow.showMaximized)
+        
+        # 設定視窗圓角和背景半透明
+        MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.centralwidget.setStyleSheet("""
+            QWidget#centralwidget {
+                background-image: url('C:/github/Databace-brian/background/background_2.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                border-radius: 15px;
+                opacity: 0.25;
+            }
+        """)
+
+        # 設定整體深色主題和圓角按鈕的樣式
+        MainWindow.setStyleSheet("""
+            QMainWindow {
+                background-color: #2b2b2b;
+            }
+            QLabel {
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: 2px solid #444444;
+                border-radius: 15px;
+                padding: 30px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+            QLineEdit {
+                border: 2px solid #444444;
+                border-radius: 15px;
+                padding: 5px;
+                background-color: #FFFFFF;
+                color: 	#000000;
+            }
+        """)
+
     def clear_fields(self):
         # 清除所有輸入欄位的內容
         self.ssn.clear()
@@ -224,16 +421,61 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "清除"))
         self.pushButton_3.setText(_translate("MainWindow", "上一頁"))
         self.label_7.setText(_translate("MainWindow", "車牌號碼："))
+        self.label_7.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_2.setText(_translate("MainWindow", "身分證字號："))
+        self.label_2.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_8.setText(_translate("MainWindow", "檢驗狀態："))
+        self.label_8.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_6.setText(_translate("MainWindow", "註冊日期："))
+        self.label_6.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_10.setText(_translate("MainWindow", "檢驗費用："))
+        self.label_10.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.comboBox_3.setItemText(0, _translate("MainWindow", "Y"))
         self.comboBox_3.setItemText(1, _translate("MainWindow", "N"))
         self.label_9.setText(_translate("MainWindow", "下次檢驗日期："))
+        self.label_9.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_5.setText(_translate("MainWindow", "檢驗號碼："))
+        self.label_5.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_4.setText(_translate("MainWindow", "車輛種類："))
+        self.label_4.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_11.setText(_translate("MainWindow", "檢驗項目："))
+        self.label_11.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.comboBox_4.setItemText(0, _translate("MainWindow", "101"))
         self.comboBox_4.setItemText(1, _translate("MainWindow", "102"))
         self.comboBox_4.setItemText(2, _translate("MainWindow", "103"))
@@ -245,6 +487,16 @@ class Ui_MainWindow(object):
         self.car_typ_comboBox.setItemText(3, _translate("MainWindow", "Sedan"))
         self.car_typ_comboBox.setItemText(4, _translate("MainWindow", "Van"))
         self.label_3.setText(_translate("MainWindow", "請輸入欲新增的車輛資訊"))
+        self.label_3.setGeometry(QtCore.QRect(240, 40, 350, 101))
+        self.label_3.setStyleSheet("""
+            QLabel {
+                color: #000000;
+                font-size: 30px;
+                font-weight: bold;
+                font-family: "Microsoft JhengHei";
+            }
+        """)
+
 
 if __name__ == "__main__":
     import sys

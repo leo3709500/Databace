@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 
 class Ui_MainWindow(object):
@@ -21,10 +22,77 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         
-        # 設定列表視圖
-        self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setGeometry(QtCore.QRect(20, 180, 751, 401))
-        self.listView.setObjectName("listView")
+       # 設定表格視圖
+        self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.tableView.setGeometry(QtCore.QRect(20, 180, 751, 390))
+        self.tableView.setObjectName("tableView")
+        self.tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        
+
+        self.columns = [
+            "type", "license_plate", "car_year", "car_month", "car_date", 
+            "inspect_no", "user_ssn", "vehicle_license", "violation_no", 
+            "status", "fine", "violate_year", "violate_month", "violate_date", 
+            "violation_no", "violation_type", "status", "inspect_no", 
+            "next__inspect_year", "next_inspect_month", "next_inspect_date", "inspect_fee", "inspect_type"
+        ]
+        # 設定模型
+        self.model = QStandardItemModel()
+        self.model.setHorizontalHeaderLabels(self.columns)
+        self.tableView.setModel(self.model)
+        
+        # 添加圓角樣式
+        self.tableView.setStyleSheet("""
+            QTableView {
+                border: 5px solid #444444;
+                background-color: #2E2E2E;
+                color: #FFFFFF;
+            }
+            QTableView::item {
+                background-color: #3C3C3C;
+                color: #FFFFFF;
+            }
+            QTableView::item:selected {
+                background-color: #0080FF;
+                color: #FFFFFF;
+            }
+            QHeaderView::section {
+                background-color: #444444;
+                color: #FFFFFF;
+            }
+            QScrollBar:vertical {
+                border: none;
+                background: #444444; /* 滾動條背景顏色 */
+                width: 10px; /* 滾動條寬度 */
+                margin: 22px 0 22px 0; /* 上下邊距 */
+            }
+            QScrollBar::handle:vertical {
+                background: #ADADAD; /* 滾動條滑塊顏色 */
+                min-height: 20px; /* 滑塊最小高度 */
+            }
+            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+                background: none; /* 隱藏上下箭頭 */
+            }
+            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+                background: none; /* 隱藏滾動條的頁面 */
+            }
+            QScrollBar:horizontal {
+                border: none;
+                background: #444444; /* 滾動條背景顏色 */
+                height: 10px; /* 滾動條高度 */
+                margin: 0 22px 0 22px; /* 左右邊距 */
+            }
+            QScrollBar::handle:horizontal {
+                background: #ADADAD; /* 滾動條滑塊顏色 */
+                min-width: 20px; /* 滑塊最小寬度 */
+            }
+            QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+                background: none; /* 隱藏左右箭頭 */
+            }
+            QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+                background: none; /* 隱藏滾動條的頁面 */
+            }
+        """)
         
         # 設定按鈕的佈局小工具
         self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -86,6 +154,17 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.gridLayout.addWidget(self.comboBox, 0, 1, 1, 1)
         
+        # 美化下拉選單
+        self.comboBox.setStyleSheet("""
+            QComboBox {
+                background-color: #444444;
+                color: #ffffff;
+                border: 2px solid #444444;
+                border-radius: 5px;
+                padding: 5px;
+            }
+        """)
+        
         self.comboBox_3 = QtWidgets.QComboBox(self.gridLayoutWidget)
         self.comboBox_3.setObjectName("comboBox_3")
         self.comboBox_3.addItem("")
@@ -96,9 +175,21 @@ class Ui_MainWindow(object):
         self.comboBox_3.addItem("")
         self.gridLayout.addWidget(self.comboBox_3, 0, 3, 1, 1)
         
+        # 美化下拉選單
+        self.comboBox_3.setStyleSheet("""
+            QComboBox {
+                background-color: #444444;
+                color: #ffffff;
+                border: 2px solid #444444;
+                border-radius: 5px;
+                padding: 5px;
+            }
+        """)
+        
         self.label_2 = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(12)
+        font.setFamily("Microsoft JhengHei")
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 0, 4, 1, 1)
@@ -106,6 +197,7 @@ class Ui_MainWindow(object):
         self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(12)
+        font.setFamily("Microsoft JhengHei")
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.gridLayout.addWidget(self.label_3, 0, 2, 1, 1)
@@ -120,18 +212,31 @@ class Ui_MainWindow(object):
         self.comboBox_2.addItem("")
         self.gridLayout.addWidget(self.comboBox_2, 0, 5, 1, 1)
         
+        # 美化下拉選單
+        self.comboBox_2.setStyleSheet("""
+            QComboBox {
+                background-color: #444444;
+                color: #ffffff;
+                border: 2px solid #444444;
+                border-radius: 5px;
+                padding: 5px;
+            }
+        """)
+        
         self.label = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(12)
+        font.setFamily("Microsoft JhengHei")
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
         
         # 設定標題標籤
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(290, 30, 221, 51))
+        self.label_4.setGeometry(QtCore.QRect(310, 30, 221, 51))
         font = QtGui.QFont()
         font.setPointSize(22)
+        font.setFamily("Microsoft JhengHei")
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         
@@ -148,6 +253,85 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        
+        # 隱藏視窗邊框
+        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
+        # 添加 Mac OS 風格的紅橘綠按鈕
+        self.button_close = QtWidgets.QPushButton(self.centralwidget)
+        self.button_close.setGeometry(QtCore.QRect(10, 10, 15, 15))
+        self.button_close.setStyleSheet("""
+            QPushButton {
+                background-color: #FF605C;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FF1F1F;
+            }
+        """)
+        self.button_minimize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_minimize.setGeometry(QtCore.QRect(30, 10, 15, 15))
+        self.button_minimize.setStyleSheet("""
+            QPushButton {
+                background-color: #FFBD44;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FFAA00;
+            }
+        """)
+        self.button_maximize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_maximize.setGeometry(QtCore.QRect(50, 10, 15, 15))
+        self.button_maximize.setStyleSheet("""
+            QPushButton {
+                background-color: #00CA4E;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #00B324;
+            }
+        """)
+
+        # 連接按鈕的點擊事件
+        self.button_close.clicked.connect(MainWindow.close)
+        self.button_minimize.clicked.connect(MainWindow.showMinimized)
+        self.button_maximize.clicked.connect(MainWindow.showMaximized)
+
+        # 設定視窗圓角和背景半透明
+        MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.centralwidget.setStyleSheet("""
+            QWidget#centralwidget {
+                background-image: url('C:/github/Databace-brian/background/background_2.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                border-radius: 15px;
+                opacity: 0.25;
+            }
+        """)
+
+        # 設定整體深色主題和圓角按鈕的樣式
+        MainWindow.setStyleSheet("""
+            QMainWindow {
+                background-color: #2b2b2b;
+            }
+            QLabel {
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: 3px solid #444444;
+                border-radius: 11px;
+                padding: 1px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+        """)
 
         # 重新翻譯UI文字
         self.retranslateUi(MainWindow)
@@ -176,8 +360,19 @@ class Ui_MainWindow(object):
         self.comboBox_3.setItemText(3, _translate("MainWindow", "103"))
         self.comboBox_3.setItemText(4, _translate("MainWindow", "104"))
         self.comboBox_3.setItemText(5, _translate("MainWindow", "105"))
+        
         self.label_2.setText(_translate("MainWindow", "違規項目："))
+        self.label_2.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_3.setText(_translate("MainWindow", "檢驗項目："))
+        self.label_3.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.comboBox_2.setItemText(0, _translate("MainWindow", "所有違規"))
         self.comboBox_2.setItemText(1, _translate("MainWindow", "1001"))
         self.comboBox_2.setItemText(2, _translate("MainWindow", "1002"))
@@ -185,7 +380,22 @@ class Ui_MainWindow(object):
         self.comboBox_2.setItemText(4, _translate("MainWindow", "1004"))
         self.comboBox_2.setItemText(5, _translate("MainWindow", "1005"))
         self.label.setText(_translate("MainWindow", "車輛種類："))
-        self.label_4.setText(_translate("MainWindow", "管理員查詢系統"))
+        self.label.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
+        
+        self.label_4.setText(_translate("MainWindow", "狀態查詢系統"))
+        self.label_4.setGeometry(QtCore.QRect(280, 30, 260, 51))
+        self.label_4.setStyleSheet("""
+            QLabel {
+                color: #000000;
+                font-weight: bold;
+                font-size: 40px;
+                
+            }
+        """)
 
 
 if __name__ == "__main__":

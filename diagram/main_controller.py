@@ -7,7 +7,7 @@ from connect.admin import Admin_login
 from connect.manage import Manage_control
 from connect.add_manage import Add_usermanage, Add_vehiclemanage, Add_violatemanage
 from connect.user import User_control
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from main_window import Ui_MainWindow as MainWindowUI
 from login_window import Ui_MainWindow as LoginWindowUI
 from manage_window import Ui_MainWindow as ManageWindowUI
@@ -17,6 +17,8 @@ from diagram.add_vehicle_window import Ui_MainWindow as AddVehicleUI
 from diagram.add_violation_window import Ui_MainWindow as AddViolationUI
 from question import Ui_MainWindow as QuestionUI
 from other import Ui_MainWindow as OtherUI
+from PyQt5.QtGui import QStandardItem
+from mac_buttons import MacButtons  # 新增導入
 
 
 class MainController(Admin_login, User_control, Manage_control, Add_usermanage, Add_vehiclemanage, Add_violatemanage):
@@ -59,6 +61,17 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
         self.ui_question.setupUi(self.question_widget)
         self.ui_other.setupUi(self.other_widget)
 
+        # 設置無邊框屬性
+        self.main_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.login_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.manage_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.add_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.user_find_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.add_vehicle_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.add_violation_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.question_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.other_widget.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
         # 將視窗加入堆疊小部件
         self.stacked_widget.addWidget(self.main_widget)
         self.stacked_widget.addWidget(self.login_widget)
@@ -83,12 +96,16 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
         self.mydb = pymysql.connect(
                 host='localhost',
                 user='root',
-                password='jimmylin0320',
+                password='leo030102',
                 database='carsys'
         )
         self.mycursor = self.mydb.cursor()
         #inherit the attribute from the other controller.
         super().__init__()
+        self.mac_buttons = MacButtons(self.main_widget, self.main_window)  # 新增這一行
+        Manage_control.__init__(self, is_edit=False)
+        self.is_dragging = False
+        self.drag_position = None
 
 
     def setup_connections(self):
@@ -101,11 +118,20 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
         self.ui_manage.pushButton_4.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.add_widget))
         
         self.ui_login.pushButton_3.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.main_widget))
+        self.ui_login.pushButton_3.clicked.connect(self.ui_login.lineEdit.clear)
+        self.ui_login.pushButton_3.clicked.connect(self.ui_login.lineEdit_2.clear)
         self.ui_user_find.pushButton_3.clicked.connect(self.user_login)
+        self.ui_user_find.pushButton_4.clicked.connect(self.reset_user_info_and_return)
+        self.ui_user_find.pushButton_4.clicked.connect(self.ui_user_find.lineEdit.clear)
+        self.ui_user_find.pushButton_4.clicked.connect(self.ui_user_find.lineEdit_2.clear)
+        self.ui_user_find.pushButton_3.clicked.connect(self.violation_infor)
+        self.ui_user_find.pushButton_3.clicked.connect(self.display_violation_status)
         self.ui_user_find.pushButton_4.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.main_widget))# return to orginal page
         # self.ui_user_find.pushButton_4.clicked.connect(self.user_login)
         
+        self.ui_manage.pushButton_3.clicked.connect(self.display_query_results)
         self.ui_manage.pushButton_3.clicked.connect(self.manage_query)
+        self.ui_manage.pushButton_5.clicked.connect(self.reset_manage_info)
         self.ui_manage.pushButton_5.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.main_widget))
         self.ui_manage.pushButton_7.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.add_vehicle_widget))
         self.ui_manage.pushButton_8.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.add_violation_widget))
@@ -122,14 +148,53 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
         self.ui_question.pushButton_5.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.main_widget))
         self.ui_other.pushButton_6.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.main_widget))
 
+        # 新增一個按鈕來顯示查詢結果
+
+        self.ui_manage.pushButton_2.clicked.connect(self.setup_table)
+        self.ui_manage.pushButton_3.clicked.connect(self.display_query_results)
+        self.ui_manage.pushButton_3.clicked.connect(self.manage_query)
+        self.ui_manage.pushButton_6.clicked.connect(self.delete_item)
+        self.ui_manage.pushButton_2.clicked.connect(self.toggle_edit_mode)
+        
+        # 關閉視窗
+        self.ui_manage.button_close.clicked.connect(self.main_window.close)
+        self.ui_login.button_close.clicked.connect(self.main_window.close)
+        self.ui_question.button_close.clicked.connect(self.main_window.close)
+        self.ui_other.button_close.clicked.connect(self.main_window.close)
+        self.ui_user_find.button_close.clicked.connect(self.main_window.close)
+
+    def display_query_results(self):
+        
+        results = self.get_query_results()
+        self.ui_manage.model.clear()  # 清除現有的模型數據
+        self.ui_manage.model.setHorizontalHeaderLabels(self.ui_manage.columns)
+        for row in results:
+            items = [QStandardItem(str(field)) for field in row]
+            self.ui_manage.model.appendRow(items)
+
     def show_main_window(self):
-        # 顯示主視窗
+        # 設置無邊框屬性和透明背景
+        self.main_window.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.main_window.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.main_window.show()
 
     def run(self):
         # 執行應用程式
         self.show_main_window()
         self.app.exec_()
+        
+    def reset_user_info_and_return(self):
+        # 清空用戶資料和車輛信息
+        self.ui_user_find.user_info_label.setText("")
+        #self.ui_user_find.vehicle_info_table.clearSelection()
+        # 返回到原始頁面
+        self.stacked_widget.setCurrentWidget(self.main_widget)
+    
+    def reset_manage_info(self):
+        self.ui_manage.model.clear()
+        self.ui_manage.model.setHorizontalHeaderLabels(self.ui_manage.columns)
+        self.ui_login.lineEdit.clear()
+        self.ui_login.lineEdit_2.clear()
 
 
 if __name__ == "__main__":

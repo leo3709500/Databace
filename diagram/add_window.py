@@ -53,6 +53,7 @@ class Ui_MainWindow(object):
         self.label_6 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.gridLayout.addWidget(self.label_6, 7, 0, 1, 1)
@@ -72,6 +73,7 @@ class Ui_MainWindow(object):
         self.label_5 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.gridLayout.addWidget(self.label_5, 6, 0, 1, 1)
@@ -85,6 +87,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
@@ -93,6 +96,7 @@ class Ui_MainWindow(object):
         self.label_7 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.gridLayout.addWidget(self.label_7, 5, 0, 1, 1)
@@ -101,6 +105,7 @@ class Ui_MainWindow(object):
         self.label_2 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
@@ -109,6 +114,7 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.gridLayout.addWidget(self.label_4, 4, 0, 1, 1)
@@ -117,6 +123,7 @@ class Ui_MainWindow(object):
         self.label_8 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.gridLayout.addWidget(self.label_8, 2, 0, 1, 1)
@@ -125,6 +132,7 @@ class Ui_MainWindow(object):
         self.label_9 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setFamily("Microsoft JhengHei")
         self.label_9.setFont(font)
         self.label_9.setObjectName("label_9")
         self.gridLayout.addWidget(self.label_9, 3, 0, 1, 1)
@@ -165,6 +173,7 @@ class Ui_MainWindow(object):
         self.label_3.setGeometry(QtCore.QRect(280, 50, 251, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
+        font.setFamily("Microsoft JhengHei")
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         
@@ -189,6 +198,106 @@ class Ui_MainWindow(object):
         # 設置清除按鈕的功能
         self.pushButton_2.clicked.connect(self.clear_fields)
 
+        # 隱藏視窗邊框
+        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        
+        # 添加 Mac OS 風格的紅橘綠按鈕
+        self.button_close = QtWidgets.QPushButton(self.centralwidget)
+        self.button_close.setGeometry(QtCore.QRect(10, 10, 15, 15))
+        self.button_close.setStyleSheet("""
+            QPushButton {
+                background-color: #FF605C;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FF1F1F;
+            }
+        """)
+        self.button_minimize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_minimize.setGeometry(QtCore.QRect(30, 10, 15, 15))
+        self.button_minimize.setStyleSheet("""
+            QPushButton {
+                background-color: #FFBD44;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FFAA00;
+            }
+        """)
+        self.button_maximize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_maximize.setGeometry(QtCore.QRect(50, 10, 15, 15))
+        self.button_maximize.setStyleSheet("""
+            QPushButton {
+                background-color: #00CA4E;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #00B324;
+            }
+        """)
+        
+        # 連接按鈕的點擊事件
+        self.button_close.clicked.connect(MainWindow.close)
+        self.button_minimize.clicked.connect(MainWindow.showMinimized)
+        self.button_maximize.clicked.connect(MainWindow.showMaximized)
+        
+        # 設定視窗圓角和背景半透明
+        MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.centralwidget.setStyleSheet("""
+            QWidget#centralwidget {
+                background-image: url('C:/github/Databace-brian/background/background_2.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                border-radius: 15px;
+                opacity: 0.25;
+            }
+        """)
+
+        # 設定整體深色主題和圓角按鈕的樣式
+        MainWindow.setStyleSheet("""
+            QMainWindow {
+                background-color: #2b2b2b;
+            }
+            QLabel {
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: 2px solid #444444;
+                border-radius: 15px;
+                padding: 30px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+            QLineEdit {
+                border: 2px solid #444444;
+                border-radius: 15px;
+                padding: 5px;
+                background-color: #FFFFFF;
+                color: 	#000000;
+            }
+            QDateEdit {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            QDateEdit::drop-down {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #444444;
+                border-radius: 4px;
+                padding: 5px;
+            }
+        """)
+
     def clear_fields(self):
         # 清除所有輸入欄位的內容
         self.name.clear()
@@ -204,17 +313,66 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_6.setText(_translate("MainWindow", "出生年月日："))
+        self.label_6.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_5.setText(_translate("MainWindow", "電話："))
+        self.label_5.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label.setText(_translate("MainWindow", "姓名："))
+        self.label.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_7.setText(_translate("MainWindow", "信箱："))
+        self.label_7.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_2.setText(_translate("MainWindow", "身分證字號："))
+        self.label_2.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_4.setText(_translate("MainWindow", "地址："))
+        self.label_4.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_8.setText(_translate("MainWindow", "密碼："))
+        self.label_8.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.label_9.setText(_translate("MainWindow", "註冊日期："))
+        self.label_9.setStyleSheet("""
+            QLabel {
+                color: #000000;
+            }
+        """)
         self.pushButton.setText(_translate("MainWindow", "新增"))
         self.pushButton_2.setText(_translate("MainWindow", "清除"))
         self.pushButton_3.setText(_translate("MainWindow", "上一頁"))
         self.label_3.setText(_translate("MainWindow", "請輸入欲新增的使用者資訊"))
+        self.label_3.setGeometry(QtCore.QRect(215, 35, 360, 101))
+        self.label_3.setStyleSheet("""
+            QLabel {
+                color: #000000;
+                font-size: 30px;
+                font-weight: bold;
+                font-family: "Microsoft JhengHei";
+            }
+        """)    
 
 if __name__ == "__main__":
     import sys

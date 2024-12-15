@@ -17,8 +17,52 @@ class Ui_MainWindow(object):
         
         # 創建 Tab Widget 並設置其位置和大小
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(50, 10, 721, 501))
+        self.tabWidget.setGeometry(QtCore.QRect(40, 40, 720, 490))
         self.tabWidget.setObjectName("tabWidget")
+        
+        # 添加美化 Tab 的樣式
+        self.tabWidget.setStyleSheet("""
+            QTabWidget::pane {
+                border: 1px solid #444444;
+                background-color: #7B7B7B;
+            }
+            QTabBar::tab {
+                background: #444444;
+                color: #ffffff;
+                padding: 10px;
+                border: 1px solid #444444;
+                border-bottom: none;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                min-width: 158px;
+                max-width: 158px;
+            }
+            QTabBar::tab:selected {
+                background: #7B7B7B;
+                font-weight: bold;
+            }
+            QTabBar::tab:hover {
+                background: #555555;
+            }
+            QTabBar {
+                alignment: center;
+            }
+            QLabel {
+                font-family: "Microsoft JhengHei";
+                color: #ffffff;
+            }
+            QPushButton {
+                font-family: "Microsoft JhengHei";
+                background-color: #444444;
+                color: #ffffff;
+                border: 3px solid #444444;
+                border-radius: 11px;
+                padding: 1px;
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+        """)
         
         # 創建第一個 Tab
         self.tab = QtWidgets.QWidget()
@@ -28,11 +72,12 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.tab)
         self.label.setGeometry(QtCore.QRect(20, 120, 491, 41))
         font = QtGui.QFont()
-        font.setPointSize(21)
+        font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
+        font.setFamily("Microsoft JhengHei")
         self.label.setFont(font)
-        self.label.setAutoFillBackground(True)
+        self.label.setAutoFillBackground(False)
         self.label.setObjectName("label")
         
         # 添加第二個標籤
@@ -64,11 +109,12 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.tab_2)
         self.label_4.setGeometry(QtCore.QRect(20, 110, 641, 101))
         font = QtGui.QFont()
-        font.setPointSize(21)
+        font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
+        font.setFamily("Microsoft JhengHei")
         self.label_4.setFont(font)
-        self.label_4.setAutoFillBackground(True)
+        self.label_4.setAutoFillBackground(False)
         self.label_4.setObjectName("label_4")
         
         # 將第二個 Tab 添加到 Tab Widget
@@ -82,20 +128,21 @@ class Ui_MainWindow(object):
         self.label_5 = QtWidgets.QLabel(self.tab_3)
         self.label_5.setGeometry(QtCore.QRect(20, 180, 771, 261))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(14)
         self.label_5.setFont(font)
         self.label_5.setAutoFillBackground(False)
         self.label_5.setObjectName("label_5")
         
         # 添加第二個標籤
         self.label_6 = QtWidgets.QLabel(self.tab_3)
-        self.label_6.setGeometry(QtCore.QRect(20, 110, 711, 91))
+        self.label_6.setGeometry(QtCore.QRect(20, 80, 711, 91))
         font = QtGui.QFont()
-        font.setPointSize(21)
+        font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
+        font.setFamily("Microsoft JhengHei")
         self.label_6.setFont(font)
-        self.label_6.setAutoFillBackground(True)
+        self.label_6.setAutoFillBackground(False)
         self.label_6.setObjectName("label_6")
         
         # 將第三個 Tab 添加到 Tab Widget
@@ -118,11 +165,12 @@ class Ui_MainWindow(object):
         self.label_8 = QtWidgets.QLabel(self.tab_4)
         self.label_8.setGeometry(QtCore.QRect(10, 70, 581, 41))
         font = QtGui.QFont()
-        font.setPointSize(21)
+        font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
+        font.setFamily("Microsoft JhengHei")
         self.label_8.setFont(font)
-        self.label_8.setAutoFillBackground(True)
+        self.label_8.setAutoFillBackground(False)
         self.label_8.setObjectName("label_8")
         
         # 將第四個 Tab 添加到 Tab Widget
@@ -130,8 +178,21 @@ class Ui_MainWindow(object):
         
         # 創建返回主畫面的按鈕
         self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(350, 520, 102, 23))
-        self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_5.setGeometry(QtCore.QRect(340, 542, 102, 23))
+        self.pushButton_5.setObjectName("pushButton_6")
+        self.pushButton_5.setStyleSheet("""
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: 3px solid #444444;
+                border-radius: 11px;
+                padding: 1px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #0080FF;
+            }
+        """)
         
         # 設置主窗口的中央小部件
         MainWindow.setCentralWidget(self.centralwidget)
@@ -152,6 +213,85 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        # 隱藏視窗邊框
+        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        
+        # 添加 Mac OS 風格的紅橘綠按鈕
+        self.button_close = QtWidgets.QPushButton(self.centralwidget)
+        self.button_close.setGeometry(QtCore.QRect(10, 10, 15, 15))
+        self.button_close.setStyleSheet("""
+            QPushButton {
+                background-color: #FF605C;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FF1F1F;
+            }
+        """)
+        self.button_minimize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_minimize.setGeometry(QtCore.QRect(30, 10, 15, 15))
+        self.button_minimize.setStyleSheet("""
+            QPushButton {
+                background-color: #FFBD44;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #FFAA00;
+            }
+        """)
+        self.button_maximize = QtWidgets.QPushButton(self.centralwidget)
+        self.button_maximize.setGeometry(QtCore.QRect(50, 10, 15, 15))
+        self.button_maximize.setStyleSheet("""
+            QPushButton {
+                background-color: #00CA4E;
+                border: none;
+                border-radius: 7px;
+            }
+            QPushButton:hover {
+                background-color: #00B324;
+            }
+        """)
+        
+        # 連接按鈕的點擊事件
+        self.button_close.clicked.connect(MainWindow.close)
+        self.button_minimize.clicked.connect(MainWindow.showMinimized)
+        self.button_maximize.clicked.connect(MainWindow.showMaximized)
+        
+        # 設定視窗圓角和背景半透明
+        MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.centralwidget.setStyleSheet("""
+            QWidget#centralwidget {
+                background-image: url('C:/github/Databace-brian/background/background_2.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                border-radius: 15px;
+                opacity: 0.25;
+            }
+        """)
+
+        # 設定整體深色主題和圓角按鈕的樣式
+        MainWindow.setStyleSheet("""
+            QMainWindow {
+                background-color: #2b2b2b;
+            }
+            QLabel {
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #444444;
+                color: #ffffff;
+                border: none;
+                border-radius: 10px;
+                padding: 10px;
+                font-family: "Microsoft JhengHei";
+            }
+            QPushButton:hover {
+                background-color: #555555;
+            }
+        """)
+
     def retranslateUi(self, MainWindow):
         # 設置窗口標題和各個標籤的文本
         _translate = QtCore.QCoreApplication.translate
@@ -162,14 +302,13 @@ class Ui_MainWindow(object):
 "3.拖車每年檢驗1次。\n"
 "4.其他汽車出廠未滿5年者每年檢驗1次，5年以上者每年檢驗2次。\n"
 "5年以上未滿10年者每年檢驗1次，10年以上者每年檢驗2次。\n"
-"\n"
 ""))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Q1"))
         self.label_3.setText(_translate("MainWindow", "1.檢驗不合格者，應於1個月內整修完善，申請覆驗。\n"
 "2.凡於7日內覆驗免收費1次，第8日起覆驗應收覆驗費。\n"
 "3.覆驗時，只檢驗不合格項目。\n"
 ""))
-        self.label_4.setText(_translate("MainWindow", "Q2.：��驗不合格之汽車，如何辦理覆驗？\n"
+        self.label_4.setText(_translate("MainWindow", "Q2.：檢驗不合格之汽車，如何辦理覆驗？\n"
 "覆驗時是否應再繳納檢驗費？"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Q2"))
         self.label_5.setText(_translate("MainWindow", "依據道路交通安全規則第52條規定駕照有效期間：\n"
