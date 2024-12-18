@@ -7,16 +7,16 @@ import pandas as pd
 mydb = pymysql.connect(
     host='localhost',
     user='root',
-    password='shibainu',
+    password='leo030102', # 請修改為你的 MySQL 密碼
     database='carsys'
 )
 mycursor = mydb.cursor()
 
-users_file_path = 'C:/github/Databace-brian/data/Users_Table__V8_.csv'
-vehicles_file_path = 'C:/github/Databace-brian/data/Vehicles_Table__V8_.csv'
-violate_status_file_path = 'C:/github/Databace-brian/data/Violate_Status_Table__V8_.csv'
-inspection_status_file_path = 'C:/github/Databace-brian/data/Inspection_Status_Table__V8_.csv'
-violation_file_path = 'C:/github/Databace-brian/data/Violation_Table__V8_.csv'
+users_file_path = 'C:/DBMS/database/Databace/data/Users_Table__V8_.csv' 
+vehicles_file_path = 'C:/DBMS/database/Databace/data/Vehicles_Table__V8_.csv'
+violate_status_file_path = 'C:/DBMS/database/Databace/data/Violate_Status_Table__V8_.csv'
+inspection_status_file_path = 'C:/DBMS/database/Databace/data/Inspection_Status_Table__V8_.csv'
+violation_file_path = 'C:/DBMS/database/Databace/data/Violation_Table__V8_.csv'
 
 users_data = pd.read_csv(users_file_path)
 vehicles_data = pd.read_csv(vehicles_file_path)

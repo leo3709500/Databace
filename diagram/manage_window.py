@@ -10,9 +10,12 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from img_set.img_set import Img_setting
 
-
-class Ui_MainWindow(object):
+class Ui_MainWindow(Img_setting):
     def setupUi(self, MainWindow):
         # 設定主視窗的名稱和大小
         MainWindow.setObjectName("MainWindow")
@@ -60,6 +63,10 @@ class Ui_MainWindow(object):
                 background-color: #444444;
                 color: #FFFFFF;
             }
+            QTableView::indicator {
+                background-color: #444444;
+                color: #FFFFFF;
+            }
             QScrollBar:vertical {
                 border: none;
                 background: #444444; /* 滾動條背景顏色 */
@@ -92,6 +99,7 @@ class Ui_MainWindow(object):
             QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
                 background: none; /* 隱藏滾動條的頁面 */
             }
+            Q
         """)
         
         # 設定按鈕的佈局小工具
@@ -233,12 +241,19 @@ class Ui_MainWindow(object):
         
         # 設定標題標籤
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(310, 30, 221, 51))
+        self.label_4.setGeometry(QtCore.QRect(280, 30, 260, 51))
         font = QtGui.QFont()
         font.setPointSize(22)
         font.setFamily("Microsoft JhengHei")
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
+        self.label_4.setStyleSheet("""
+            QLabel {
+                color: #ffffff;
+                font-weight: bold;
+                font-size: 40px;
+            }
+        """)
         
         # 設定主視窗的中央小工具
         MainWindow.setCentralWidget(self.centralwidget)
@@ -302,14 +317,14 @@ class Ui_MainWindow(object):
 
         # 設定視窗圓角和背景半透明
         MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.centralwidget.setStyleSheet("""
-            QWidget#centralwidget {
-                background-image: url('C:/github/Databace-brian/background/background_2.png');
+        self.centralwidget.setStyleSheet(f"""
+            QWidget#centralwidget {{
+                background-image: url({self.background_2});
                 background-repeat: no-repeat;
                 background-position: center;
                 border-radius: 15px;
                 opacity: 0.25;
-            }
+            }}
         """)
 
         # 設定整體深色主題和圓角按鈕的樣式
@@ -390,10 +405,9 @@ class Ui_MainWindow(object):
         self.label_4.setGeometry(QtCore.QRect(280, 30, 260, 51))
         self.label_4.setStyleSheet("""
             QLabel {
-                color: #000000;
+                color: #ffffff;
                 font-weight: bold;
                 font-size: 40px;
-                
             }
         """)
 

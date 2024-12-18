@@ -8,8 +8,12 @@
 # 除非您知道自己在做什麼，否則不要編輯此文件。
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from img_set.img_set import Img_setting
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(Img_setting):
     def setupUi(self, MainWindow):
         # 設定主視窗的名稱和大小
         MainWindow.setObjectName("MainWindow")
@@ -246,14 +250,14 @@ class Ui_MainWindow(object):
         
         # 設定視窗圓角和背景半透明
         MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.centralwidget.setStyleSheet("""
-            QWidget#centralwidget {
-                background-image: url('C:/github/Databace-brian/background/background_2.png');
+        self.centralwidget.setStyleSheet(f"""
+            QWidget#centralwidget {{
+                background-image: url({self.background_2});
                 background-repeat: no-repeat;
                 background-position: center;
                 border-radius: 15px;
                 opacity: 0.25;
-            }
+            }}
         """)
 
         # 設定整體深色主題和圓角按鈕的樣式

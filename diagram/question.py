@@ -4,8 +4,11 @@
 # 警告：任何手動更改都會在再次運行 pyuic5 時丟失
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-class Ui_MainWindow(object):
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from img_set.img_set import Img_setting
+class Ui_MainWindow(Img_setting):
     def setupUi(self, MainWindow):
         # 設置主窗口的基本屬性
         MainWindow.setObjectName("MainWindow")
@@ -163,7 +166,7 @@ class Ui_MainWindow(object):
         
         # 添加第二個標籤
         self.label_8 = QtWidgets.QLabel(self.tab_4)
-        self.label_8.setGeometry(QtCore.QRect(10, 70, 581, 41))
+        self.label_8.setGeometry(QtCore.QRect(10, 50, 700, 70))
         font = QtGui.QFont()
         font.setPointSize(24)
         font.setBold(True)
@@ -261,14 +264,14 @@ class Ui_MainWindow(object):
         
         # 設定視窗圓角和背景半透明
         MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.centralwidget.setStyleSheet("""
-            QWidget#centralwidget {
-                background-image: url('C:/github/Databace-brian/background/background_2.png');
+        self.centralwidget.setStyleSheet(f"""
+            QWidget#centralwidget {{
+                background-image: url({self.background_2});
                 background-repeat: no-repeat;
                 background-position: center;
                 border-radius: 15px;
                 opacity: 0.25;
-            }
+            }}
         """)
 
         # 設定整體深色主題和圓角按鈕的樣式
@@ -312,12 +315,12 @@ class Ui_MainWindow(object):
 "覆驗時是否應再繳納檢驗費？"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Q2"))
         self.label_5.setText(_translate("MainWindow", "依據道路交通安全規則第52條規定駕照有效期間：\n"
-"1. 自中華民國102年7月1日起，新領或已領有之各類普通駕駛執照，免定期申請換發；其已領有之駕駛執照\n"
-"有效期間屆滿後，仍屬有效，並得免換發之；外國人取得外僑永久居留證者，亦同。\n"
+"1. 自中華民國102年7月1日起，新領或已領有之各類普通駕駛執照，免定期申請\n換發；其已領有之駕駛執照"
+"有效期間屆滿後，仍屬有效，並得免換發之；外國人\n取得外僑永久居留證者，亦同。\n"
 "2. 受終身不得考領駕駛執照處分重新申請考驗合格後領有1年有效期間駕駛執照。\n"
-"3. 外國人、大陸地區人民、香港或澳門居民或臺灣地區無戶籍之國民考領換領我國汽車駕駛執照應每滿6年換發。\n"
-"4. 特定年齡以上之汽車駕駛人另有規定其普通駕駛執照有效期間及申請換發新照規定時，應依規定辦理之。\n"
-"5. 汽車駕駛人應於有效期限屆滿前後1個月內向公路監理機關申請換發。除前項免再依規定申請換發之情形外，\n"
+"3. 外國人、大陸地區人民、香港或澳門居民或臺灣地區無戶籍之國民考領換領我國\n汽車駕駛執照應每滿6年換發。\n"
+"4. 特定年齡以上之汽車駕駛人另有規定其普通駕駛執照有效期間及申請換發新照\n規定時，應依規定辦理之。\n"
+"5. 汽車駕駛人應於有效期限屆滿前後1個月內向公路監理機關申請換發。除前項\n免再依規定申請換發之情形外，"
 "汽車駕駛執照逾期未換發新照者，不得駕駛汽車。\n"
 "依據道路交通管理處罰條例第22條規定：\n"
 "駕駛執照逾有效期間仍駕車者，處新臺幣1800元以上3600元以下罰鍰，並禁止其駕駛； 駕駛執照並應扣繳之。\n"
@@ -337,7 +340,7 @@ class Ui_MainWindow(object):
 "2.駕照背面之「住址變更」欄已填滿者應換發新照，並繳納規費\n"
 "新臺幣50元；駕照已到期應同時辦理換照者，繳納規費新臺幣200元。\n"
 ""))
-        self.label_8.setText(_translate("MainWindow", "Q4：汽(機)車駕駛人住址變更，應如何辦理？"))
+        self.label_8.setText(_translate("MainWindow", "Q4：汽(機)車駕駛人住址變更，應\n如何辦理？"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Q4"))
         self.pushButton_5.setText(_translate("MainWindow", "返回主畫面"))
 

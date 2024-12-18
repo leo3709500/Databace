@@ -3,8 +3,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
 class Manage_control:
     def __init__(self, is_edit=False):
-        # 初始化狀態變量
         self.is_edit = is_edit
+        self._block_signals = False
+        
 
     def manage_query(self):
         car_type = str(self.ui_manage.comboBox.currentText()).strip()
@@ -85,52 +86,69 @@ class Manage_control:
         return self.mycursor.fetchall()  # 返回查詢結果
     def setup_table(self):
         self.is_edit = not self.is_edit
-        if self.is_edit:
-            self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
-        else:
-            self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        # 根據當前模式設置表格的編輯觸發器
+        
+        # 斷開之前的信號連接
+        try:
+            self.ui_manage.model.itemChanged.disconnect(self.on_item_changed)
+        except:
+            pass
+            
+        # 設置編輯觸發器
         if self.is_edit:
             self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
             self.ui_manage.tableView.setSelectionBehavior(self.ui_manage.tableView.SelectRows)
             self.ui_manage.tableView.setSelectionMode(self.ui_manage.tableView.SingleSelection)
-        for row in range(self.ui_manage.model.rowCount()):
-            for column in range(self.ui_manage.model.columnCount()):
-                item = self.ui_manage.model.item(row, column)
-                if item: 
-                    item.setFlags(item.flags() | Qt.ItemIsEditable)
-        self.ui_manage.model.itemChanged.connect(self.on_item_changed)
+            
+            # 設置單元格的可編輯狀態
+            for row in range(self.ui_manage.model.rowCount()):
+                for column in range(self.ui_manage.model.columnCount()):
+                    item = self.ui_manage.model.item(row, column)
+                    if item:
+                        item.setFlags(item.flags() | Qt.ItemIsEditable)
+                        
+            # 重新連接信號
+            self.ui_manage.model.itemChanged.connect(self.on_item_changed)
+        else:
+            self.ui_manage.tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
 
     def on_item_changed(self, item):
-        original_value = self.ui_manage.model.data(item.index(), Qt.EditRole)
-        new_value = item.text()
-        row = item.row()
-        column = item.column()
-        column_name = self.ui_manage.model.horizontalHeaderItem(column).text()
-        if column_name  == "license_plate":
-            reply = QMessageBox.question(
-                self.ui_manage.tableView, 
-                "Error", 
-                f"The license_plate can not be changed!!",
-                QMessageBox.Yes
-            )
-            if reply:
-                item.setText(original_value)    #reset to origin.
-                return  #halt the process.
-
-        #get the primary key
-        license_plate = self.ui_manage.model.item(row, 1).text()  
-        # update database
-        update_query = f"UPDATE vehicles SET {column_name} = %s WHERE license_plate = %s"
-
+        if self._block_signals:
+            return
+            
+        self._block_signals = True
         try:
-            self.mycursor.execute(update_query, (new_value, license_plate))
-            self.mydb.commit()
-            print(f"Successfully updated {column_name} to {new_value} for license_plate {license_plate}")
-        except Exception as e:
-            print(f"Failed to update database: {e}")
-            self.mydb.rollback()
+            original_value = self.ui_manage.model.data(item.index(), Qt.EditRole)
+            new_value = item.text()
+            row = item.row()
+            column = item.column()
+            column_name = self.ui_manage.model.horizontalHeaderItem(column).text()
+            
+            if column_name == "license_plate":
+                reply = QMessageBox.question(
+                    self.ui_manage.tableView, 
+                    "Error", 
+                    "The license_plate can not be changed!!",
+                    QMessageBox.Yes
+                )
+                if reply:
+                    item.setText(original_value)
+                    return
+
+            license_plate = self.ui_manage.model.item(row, 1).text()
+            update_query = f"UPDATE vehicles SET {column_name} = %s WHERE license_plate = %s"
+
+            try:
+                self.mycursor.execute(update_query, (new_value, license_plate))
+                self.mydb.commit()
+                print(f"Successfully updated {column_name} to {new_value} for license_plate {license_plate}")
+            except Exception as e:
+                print(f"Failed to update database: {e}")
+                self.mydb.rollback()
+                item.setText(original_value)
+        finally:
+            self._block_signals = False
+            
     def delete_item(self):
         # Get the index of the selected row
         selected_indexes = self.ui_manage.tableView.selectionModel().selectedRows()

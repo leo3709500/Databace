@@ -18,21 +18,21 @@ from diagram.add_violation_window import Ui_MainWindow as AddViolationUI
 from question import Ui_MainWindow as QuestionUI
 from other import Ui_MainWindow as OtherUI
 from PyQt5.QtGui import QStandardItem
-from mac_buttons import MacButtons  # 新增導入
+from mac_buttons import MacButtons  
 
 
 class MainController(Admin_login, User_control, Manage_control, Add_usermanage, Add_vehiclemanage, Add_violatemanage):
     def __init__(self):
         # 初始化應用程式
-        self.app = QtWidgets.QApplication([])
-        self.main_window = QtWidgets.QMainWindow()
-        self.stacked_widget = QtWidgets.QStackedWidget()
+        self.app = QtWidgets.QApplication([]) # 創建應用程式物件，負責管理應用程式的控制流和主要設置
+        self.main_window = QtWidgets.QMainWindow() # 創建主視窗物件，負責管理主視窗的顯示和控制
+        self.stacked_widget = QtWidgets.QStackedWidget() # 創建堆疊小部件物件，負責管理視窗的堆疊和切換
 
         # 初始化各個UI
-        self.ui_main = MainWindowUI()   #initial page
-        self.ui_login = LoginWindowUI() #normal login
+        self.ui_main = MainWindowUI()  
+        self.ui_login = LoginWindowUI() 
         self.ui_manage = ManageWindowUI()
-        self.ui_add = AddWindowUI()     #add user information
+        self.ui_add = AddWindowUI()     
         self.ui_user_find = UserFindWindowUI()
         self.ui_add_vehicle = AddVehicleUI()
         self.ui_add_violation = AddViolationUI()
@@ -96,7 +96,7 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
         self.mydb = pymysql.connect(
                 host='localhost',
                 user='root',
-                password='leo030102',
+                password='leo030102', # 請修改為你的 MySQL 密碼
                 database='carsys'
         )
         self.mycursor = self.mydb.cursor()
@@ -186,7 +186,14 @@ class MainController(Admin_login, User_control, Manage_control, Add_usermanage, 
     def reset_user_info_and_return(self):
         # 清空用戶資料和車輛信息
         self.ui_user_find.user_info_label.setText("")
-        #self.ui_user_find.vehicle_info_table.clearSelection()
+        self.ui_user_find.vehicle_info_model.clear()  # 清除車輛信息表格
+        self.ui_user_find.vehicle_info_model.setHorizontalHeaderLabels(
+            ["車輛類型", "車輛牌照", "車輛年份", "車輛月份", "車輛日期", "檢查號"]
+        )
+        self.ui_user_find.violate_status_model.clear()  # 清除違規狀態表格
+        self.ui_user_find.violate_status_model.setHorizontalHeaderLabels(
+            ["車牌號碼", "違規類型", "違規日期", "罰款金額", "狀態"]
+        )
         # 返回到原始頁面
         self.stacked_widget.setCurrentWidget(self.main_widget)
     

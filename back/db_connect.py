@@ -3,7 +3,7 @@ import pymysql
 mydb = pymysql.connect(
     host='localhost',
     user='root',
-    password='leo030102'
+    password='leo030102' # 請修改為你的 MySQL 密碼
 )
 mycursor = mydb.cursor()
 mycursor.execute("CREATE DATABASE IF NOT EXISTS carsys;")

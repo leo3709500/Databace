@@ -21,7 +21,7 @@ class User_control:
         # check result!
         if result:
             print("Login successful!")
-            user_info = f"帳號: {result[0]}\n姓名: {result[1]}\n電子郵件: {result[3]}"  # 假設 result[0] 是帳號，result[1] 是姓名，result[2] 是電子郵件
+            user_info = f"姓名: {result[0]}\n帳號: {result[1]}\n電子郵件: {result[3]}"  # 假設 result[0] 是帳號，result[1] 是姓名，result[2] 是電子郵件
             self.ui_user_find.user_info_label.setText(user_info)  # 顯示用戶資料
 
             vehicle_query = "SELECT * FROM vehicles WHERE user_ssn = %s"

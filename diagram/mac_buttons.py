@@ -4,6 +4,7 @@ class MacButtons:
     def __init__(self, main_widget, main_window):
         self.main_widget = main_widget
         self.main_window = main_window
+        self.is_dragging = False
         self.setup_mac_buttons()
 
     def setup_mac_buttons(self):
