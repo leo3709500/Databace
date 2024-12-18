@@ -8,7 +8,10 @@
 ## 系統需求
 - **Python 版本**：Python 3.x
 - **套件依賴**：PyQt5
+<<<<<<< HEAD
 - **資料庫**：MySQL Workbench 8.0 CE
+=======
+>>>>>>> fb5f5a7180d08c56758b98dd4070946fa5246815
 
 ---
 
@@ -33,12 +36,20 @@
 
 ### 啟動應用程式
 1. 確保所有依賴已安裝。
+<<<<<<< HEAD
 2. 修改 `back/db_connect.py`, `back/create_table.py`, `back/store_data.py`, `diagram/main_controller.py` 中的密碼，使其與 MySQL 密碼一致。
 3. 執行 `main_controller.py` 啟動應用程式：
    ```bash
    python main_controller.py
    ```
 4. 系統將開啟主視窗，提供多項功能選擇。
+=======
+2. 執行 `main_controller.py` 啟動應用程式：
+   ```bash
+   python main_controller.py
+   ```
+3. 系統將開啟主視窗，提供多項功能選擇。
+>>>>>>> fb5f5a7180d08c56758b98dd4070946fa5246815
 
 ---
 
@@ -133,3 +144,7 @@
 - 提供基本功能包括：主視窗導航、管理員登入、新增與查詢資料功能。
 
 ---
+<<<<<<< HEAD
+=======
+
+>>>>>>> fb5f5a7180d08c56758b98dd4070946fa5246815
